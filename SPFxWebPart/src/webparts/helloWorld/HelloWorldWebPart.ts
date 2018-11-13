@@ -8,6 +8,8 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './HelloWorldWebPart.module.scss';
 import * as strings from 'HelloWorldWebPartStrings';
+import * as AuthenticationContext from "adal-angular";
+import '../WebPartAuthenticationContext';
 
 export interface IHelloWorldWebPartProps {
   description: string;
@@ -31,6 +33,67 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
           </div>
         </div>
       </div>`;
+
+      var authContext = new AuthenticationContext({
+        clientId: '43cff830-1343-49d7-9e45-252da19e4146',
+        instance: "https://login.microsoftonline.com/",
+        tenant: "chriswangwicresoft.onmicrosoft.com",
+        // postLogoutRedirectUri: 'https://localhost:4321/temp/workbench.html'
+      });
+      // Make an AJAX request to the Microsoft Graph API and print the response as JSON.
+      var getToken;
+      var getCurrentUser = function (access_token) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://graph.microsoft.com/v1.0/me', true);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // Do something with the response
+            
+            getToken=JSON.stringify(JSON.parse(xhr.responseText), null, '  ');
+            console.log('get Graph APi information=='+getToken);
+          } else {
+            // TODO: Do something with the error (or non-200 responses)
+          //  console.log(' error');
+          }
+        };
+        xhr.send();
+      }
+ 
+      if (authContext.isCallback(window.location.hash)) {
+        // Handle redirect after token requests
+        authContext.handleWindowCallback();
+        var err = authContext.getLoginError();
+        if (err) {
+          // TODO: Handle errors signing in and getting tokens
+          console.log('login error');
+        }
+      } else {
+        // If logged in, get access token and make an API request
+        var user = authContext.getCachedUser();
+        if (user) {
+         
+ 
+          // Get an access token to the Microsoft Graph API
+          authContext.acquireToken(
+            'https://graph.microsoft.com',
+            function (error, token) {
+              if (error || !token) {
+                // TODO: Handle error obtaining access token
+                console.log('Token error');
+                return;
+              }
+              // Use the access token
+              console.log('token=='+token);
+              getCurrentUser(token);
+            }
+          );
+        } else {
+          authContext.login();
+        }
+       
+      }
+      
   }
 
   protected get dataVersion(): Version {
