@@ -1,9 +1,26 @@
-# SharePoint-REST-API-Tutorial
+## adaljs
 
-## Addins
+This is where you include your WebPart documentation.
 
-### Steps to use the Addin sample code
+### Building the code
 
-* Download the project
-* In the project property, change Site URL and input acc & psd
-* Click F5 to debug the addin
+```bash
+git clone the repo
+npm i
+npm i -g gulp
+gulp
+```
+
+This package produces the following:
+
+* lib/* - intermediate-stage commonjs build artifacts
+* dist/* - the bundled script, along with other resources
+* deploy/* - all resources which should be uploaded to a CDN.
+
+### Build options
+
+gulp clean - TODO
+gulp test - TODO
+gulp serve - TODO
+gulp bundle - TODO
+gulp package-solution - TODO

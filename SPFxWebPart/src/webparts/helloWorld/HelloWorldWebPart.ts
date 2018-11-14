@@ -11,6 +11,8 @@ import * as strings from 'HelloWorldWebPartStrings';
 import * as AuthenticationContext from "adal-angular";
 import '../WebPartAuthenticationContext';
 
+
+
 export interface IHelloWorldWebPartProps {
   description: string;
 }
@@ -35,7 +37,7 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
       </div>`;
 
       var authContext = new AuthenticationContext({
-        clientId: '43cff830-1343-49d7-9e45-252da19e4146',
+        clientId: 'b86d778a-402d-4b6b-b7ee-0dfdb1fbdb92',
         instance: "https://login.microsoftonline.com/",
         tenant: "chriswangwicresoft.onmicrosoft.com",
         // postLogoutRedirectUri: 'https://localhost:4321/temp/workbench.html'
@@ -59,7 +61,7 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
         };
         xhr.send();
       }
- 
+
       if (authContext.isCallback(window.location.hash)) {
         // Handle redirect after token requests
         authContext.handleWindowCallback();
@@ -73,7 +75,7 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
         var user = authContext.getCachedUser();
         if (user) {
          
- 
+
           // Get an access token to the Microsoft Graph API
           authContext.acquireToken(
             'https://graph.microsoft.com',
@@ -93,7 +95,6 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
         }
        
       }
-      
   }
 
   protected get dataVersion(): Version {

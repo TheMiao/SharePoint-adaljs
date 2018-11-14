@@ -3,8 +3,8 @@
     "isCreatingSolution": true,
     "environment": "spo",
     "version": "1.6.0",
-    "libraryName": "sp-fx-web-part",
-    "libraryId": "6a4accc8-4815-454e-8bce-b476318c2ccf",
+    "libraryName": "adaljs",
+    "libraryId": "80958be1-1194-48a0-a9b2-dd18a3aba6f0",
     "packageManager": "npm",
     "componentType": "webpart"
   }
