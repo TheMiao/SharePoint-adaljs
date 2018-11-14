@@ -37,9 +37,9 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
       </div>`;
 
       var authContext = new AuthenticationContext({
-        clientId: 'b86d778a-402d-4b6b-b7ee-0dfdb1fbdb92',
+        clientId: 'your_client_id',
         instance: "https://login.microsoftonline.com/",
-        tenant: "chriswangwicresoft.onmicrosoft.com",
+        tenant: "your_tenant_id.onmicrosoft.com",
         // postLogoutRedirectUri: 'https://localhost:4321/temp/workbench.html'
       });
       // Make an AJAX request to the Microsoft Graph API and print the response as JSON.
